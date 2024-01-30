@@ -4,7 +4,7 @@ import TextButton from "../components/Button/TextButton";
 import LoadingModal from "../components/Loading";
 import moment from "moment/moment";
 import { InputSingleField } from "../components/Field/InputField";
-import { fetchAttendance } from "../config/api/services";
+import { fetchAttendance, sendNotifToken } from "../config/api/services";
 import { getToken } from "firebase/messaging";
 import { messaging } from "../config/third_party/firebase";
 
@@ -19,8 +19,6 @@ function HomePage() {
             setLoading(true);
             
             const res = await fetchAttendance({ from: start, to: end, page: 1, limit: 100 });
-
-            console.log(res);
 
             setData(res);
 
@@ -40,8 +38,7 @@ function HomePage() {
             vapidKey: process.env.REACT_APP_SECRET_PAIR_KEY,
           });
     
-          //We can send token to server
-          console.log("Token generated : ", token, '==');
+          await sendNotifToken({ token });
         } else if (permission === "denied") {
           //notifications are blocked
           alert("You denied for the notification");

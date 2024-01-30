@@ -84,6 +84,14 @@ const createStaff = async (data) => {
     }
 }
 
+const sendNotifToken = async ({ token }) => {
+    try {
+        return await HttpPost(`dashboard/accounts/firebase`, {token}, null);
+    } catch (error) {
+        throw error
+    }
+}
+
 export {
     login,
     fetchAttendance,
@@ -92,5 +100,6 @@ export {
     updateProfile,
     uploadDocument,
     fetchStaff,
-    createStaff
+    createStaff,
+    sendNotifToken
 }

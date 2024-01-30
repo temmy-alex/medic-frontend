@@ -1,6 +1,6 @@
 
 import { initializeApp } from "firebase/app";
-import { getMessaging, onMessage } from "firebase/messaging";
+import { getMessaging } from "firebase/messaging";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -14,11 +14,3 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const messaging = getMessaging(app);
-
-export const onMessageListener = () =>
-  new Promise((resolve) => {
-    onMessage(messaging, (payload) => {
-      console.log("payload", payload)
-      resolve(payload);
-    });
-  });
